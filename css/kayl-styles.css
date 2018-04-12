@@ -41,6 +41,42 @@ td {
   background-image: url(../kayl-img/rightBorder.png);
 }
 
+.bodyTile {
+  background-image: url(../kayl-img/bodyTile.png);
+}
+
+.bodyTile1 {
+  background-image: url(../kayl-img/bodyTile1.png);
+}
+
+.bodyTile2 {
+  background-image: url(../kayl-img/bodyTile2.png);
+}
+
+.bodyTile3 {
+  background-image: url(../kayl-img/bodyTile3.png);
+}
+
+.barrier {
+  background-image: url(../kayl-img/barrier.png);
+}
+
+.wall-left {
+  background-image: url(../kayl-img/wall1l.png);
+}
+
+.wall-right {
+  background-image: url(../kayl-img/wall1r.png);
+}
+
+.wall-up {
+  background-image: url(../kayl-img/wall1u.png);
+}
+
+.wall-down {
+  background-image: url(../kayl-img/wall1d.png);
+}
+
 .container {
   float: right;
   width: 85%;
@@ -55,7 +91,7 @@ td {
 }
 
 .wrapper img {
-  width: 155px;
+  width: 80%;
 }
 
 #gameboard, #navigation {
@@ -89,25 +125,6 @@ td {
   background-color: #ff5151;
 }
 
-.barrier {
-  background-color: black;
-}
-
-.wall-left {
-  border-left: 5px solid black;
-}
-
-.wall-right {
-  border-right: 5px solid black;
-}
-
-.wall-up {
-  border-top: 5px solid black;
-}
-
-.wall-down {
-  border-bottom: 5px solid black;
-}
 
 .display-none {
   display: none;
