@@ -1,0 +1,65 @@
+table {
+  border: 1px solid #000;
+}
+
+td {
+  border: solid 1px black;
+  height: 110px;
+  width: 110px;
+  text-align: center;
+}
+
+#gameboard, #navigation {
+  margin: 20px auto;
+}
+
+#status h3 {
+  float: left;
+  font-weight: bold;
+  margin: 6px 10px;
+}
+
+#status {
+  border: 1px solid #000;
+  margin: 0 auto 15px;
+  overflow: auto;
+  width: 660px;
+}
+
+#meter {
+  background-color: #5cf9a2;
+  height: 38px;
+  width: 0%;
+}
+
+#meter.warning {
+  background-color: #f6f95c;
+}
+
+#meter.danger {
+  background-color: #ff5151;
+}
+
+.barrier {
+  background-color: black;
+}
+
+.wall-left {
+  border-left: 5px solid black;
+}
+
+.wall-right {
+  border-right: 5px solid black;
+}
+
+.wall-up {
+  border-top: 5px solid black;
+}
+
+.wall-down {
+  border-bottom: 5px solid black;
+}
+
+.display-none {
+  display: none;
+}

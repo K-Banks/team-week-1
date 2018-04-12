@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/kayl-styles.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-3.3.1.js" type="text/javascript"></script>
+    <script src="js/kayl-scripts.js" type="text/javascript"></script>
+    <title>Get to the Crapper!</title>
+  </head>
+  <body>
+    <div class="text-center jumbotron">
+      <h1>Get to tha Crappa'</h1>
+      <h3>Get to the toilet before you crappa' yourself!</h3>
+    </div>
+    <div class="container well">
+      <div id="navigation" class="text-center">
+        <h3>Use the "WASD" keys or the buttons to get to the toilet!</h3>
+        <button id="left" class="btn btn-success" type="button">LEFT</button>
+        <button id="up" class="btn btn-success" type="button">UP</button>
+        <button id="down" class="btn btn-success" type="button">DOWN</button>
+        <button id="right" class="btn btn-success" type="button">RIGHT</button>
+        <br>
+        <br>
+        <div id="status">
+          <h3>Bowel Pressure</h3>
+          <div id="meter">
+          </div>
+        </div>
+      </div>
+      <div id="game-over" class="text-center display-none">
+        <h4></h4>
+        <button id="restart" class="btn btn-warning" type="button">PLAY AGAIN</button>
+      </div>
+      <table id="gameboard" class="text-center">
+        <tr class="y0">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y1">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y2">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y3">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y4">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y5">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y6">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y7">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y8">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+        <tr class="y9">
+          <td class="x0"></td>
+          <td class="x1"></td>
+          <td class="x2"></td>
+          <td class="x3"></td>
+          <td class="x4"></td>
+          <td class="x5"></td>
+          <td class="x6"></td>
+          <td class="x7"></td>
+          <td class="x8"></td>
+          <td class="x9"></td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
