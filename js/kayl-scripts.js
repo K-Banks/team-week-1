@@ -219,91 +219,106 @@ function powerUpIncrease(player, powerUp, turnCounter, turnLimit){
 }
 
 // USER INTERFACE LOGIC
-function triggerInterrupt(player, goal, enemies, turnCounter, turnLimit) {
-  var interrupt = false;
-  if (player.xCoordinate === goal.xCoordinate && player.yCoordinate === goal.yCoordinate) {
-    $("#game-over h4").html("Whew, you win! Don't forget to flush.");
-    $("#navigation").hide();
-    $("#game-over").show();
-    interrupt = true;
-  } else if (turnCounter === turnLimit + 1) {
-    $("#game-over h4").html("You ran out of time and had an accident.");
-    $("#navigation").hide();
-    $("#game-over").show();
-    interrupt = true;
-  }
-  enemies.forEach(function(enemy) {
-    if (player.xCoordinate === enemy.xCoordinate && player.yCoordinate === enemy.yCoordinate) {
-      $("#game-over h4").html("You lose!");
-      $("#navigation").hide();
-      $("#game-over").show();
-      interrupt = true;
-    }
-  });
-  return interrupt;
-}
-
-function objectListing(objects) {
-  objects.forEach(function(object) {
-    $("ul#objectList").append(
-      "<li>" +
-        object.name +
-        "<br>" +
-        "<img src='" + object.avatar + "' alt='" + object.name + "'>" +
-      "</li>"
-    );
-  });
-}
-
-function positionGameObjects(array) {
-  $("td").text("");
-  array.forEach(function(element) {
-    $(".y" + element.yCoordinate + " .x" + element.xCoordinate).html("<img src='" + element.avatar + "'>");
-  });
-}
-
-function meter(turnCounter, turnLimit) {
-  var percentileWidth = turnCounter / turnLimit * 100;
-  if (percentileWidth >= 40 && percentileWidth < 70) {
-    $("#meter").addClass("warning");
-  } else if (percentileWidth >= 70) {
-    $("#meter").addClass("danger");
-  }
-  $("#meter").width(percentileWidth + "%");
-}
-
 $(document).ready(function() {
   var turnCounter = 0;
   var turnLimit = 20;
   var gameObjects = [];
   var enemies = [];
-  var player = new GameObject("Player", "player.png", 0, 0);
-  var goal = new GameObject("Goal", "toilet.png", 9, 9);
-  var patrol = new GameObject("Patrol", "poop.png", 1, 4, "patrol");
+  var rivalCounter = 0;
+  var rivalMaximum = 1;
+  var player = new GameObject("Player", "player.png", 0, 0, "none", "");
+  var goal = new GameObject("Goal", "toilet.png", 9, 9, "none", "");
+  var patrol = new GameObject("Patrol", "poop.png", 1, 4, "patrol", "");
   var hunter = new GameObject("Hunter", "hunter.gif", 5, 0, "hunter", player);
-  var guard = new GameObject("Guard (vertical)", "cube.png", 3, 6, "vertical");
+  var guard = new GameObject("Guard (vertical)", "cube.png", 3, 6, "vertical", "");
   var guard2 = new GameObject("Guard (horizontal)", "arrow.png", 5, 8, "horizontal");
-  var powerUp = new GameObject("Power Up", "dice.png", 7, 9);
+  var powerUp = new GameObject("Power Up", "dice.png", 7, 9, "none");
   var rival = new GameObject("Rival", "peace.png", 5, 6, "hunter", goal);
-  gameObjects.push(goal, player, patrol, hunter, guard, guard2, powerUp, rival);
-  enemies.push(patrol, hunter, guard, guard2, rival);
+  gameObjects.push(goal, player, patrol, hunter, guard, guard2, powerUp);
+  enemies.push(patrol, hunter, guard, guard2);
+
+  function triggerInterrupt(player, goal, enemies, turnCounter, turnLimit) {
+    var interrupt = false;
+    if (player.xCoordinate === goal.xCoordinate && player.yCoordinate === goal.yCoordinate) {
+      $("#game-over h4").html("Whew, you win! Don't forget to flush.");
+      $("#navigation").hide();
+      $("#game-over").show();
+      interrupt = true;
+    } else if (turnCounter === turnLimit + 1) {
+      $("#game-over h4").html("You ran out of time and had an accident.");
+      $("#navigation").hide();
+      $("#game-over").show();
+      interrupt = true;
+    }
+    enemies.forEach(function(enemy) {
+      if (player.xCoordinate === enemy.xCoordinate && player.yCoordinate === enemy.yCoordinate) {
+        $("#game-over h4").html("You lose!");
+        $("#navigation").hide();
+        $("#game-over").show();
+        interrupt = true;
+      }
+    });
+    return interrupt;
+  }
+
+  function objectListing(objects) {
+    objects.forEach(function(object) {
+      $("ul#objectList").append(
+        "<li>" +
+          object.name +
+          "<br>" +
+          "<img src='" + object.avatar + "' alt='" + object.name + "'>" +
+        "</li>"
+      );
+    });
+  }
+
+  function positionGameObjects(gameObjects) {
+    $("td").text("");
+    gameObjects.forEach(function(element) {
+      console.log(element);
+      $(".y" + element.yCoordinate + " .x" + element.xCoordinate).html("<img src='" + element.avatar + "'>");
+    });
+  }
+
+  function meter(turnCounter, turnLimit) {
+    var percentileWidth = turnCounter / turnLimit * 100;
+    if (percentileWidth >= 40 && percentileWidth < 70) {
+      $("#meter").addClass("warning");
+    } else if (percentileWidth >= 70) {
+      $("#meter").addClass("danger");
+    }
+    $("#meter").width(percentileWidth + "%");
+  }
 
   objectListing(gameObjects);
   positionGameObjects(gameObjects);
 
+  function  rivalAppearance(rival, rivalCounter, rivalMaximum) {
+    gameObjects.push(rival);
+    enemies.push(rival);
+    positionGameObjects(gameObjects);
+    rivalCounter++;
+    rivalMaximum++;
+  }
+
   function progressTurn() {
     positionGameObjects(gameObjects);
     if (triggerInterrupt(player, goal, enemies, turnCounter, turnLimit) === false) {
-      movePattern(enemy1, enemy1.enemyType, enemy1.enemyTarget, turnCounter);
-      movePattern(enemy2, enemy2.enemyType, enemy2.enemyTarget, turnCounter);
+      enemies.forEach(function(enemy, turnCounter){
+        movePattern(enemy, enemy.enemyType, enemy.enemyTarget, turnCounter);
+      });
       positionGameObjects(gameObjects);
     }
     if (powerUpCheck(player, powerUp)) {
      turnCounter = powerUpIncrease(player, powerUp, turnCounter, turnLimit);
-     gameObjects.pop();
+     gameObjects.splice(powerUp, 0);
      powerUp.xCoordinate = "";
      powerUp.yCoordinate = "";
      positionGameObjects(gameObjects);
+    }
+    if (rivalCounter < rivalMaximum && turnCounter === 5) {
+      rivalAppearance();
     }
     turnCounter ++;
     meter(turnCounter, turnLimit);

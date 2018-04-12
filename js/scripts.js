@@ -87,7 +87,7 @@ function moveNpcHunter(enemy, target) {
 
 function moveNpcPatrol(enemy) {
   if (enemy.enemyDirection === "down") {
-    if (enemy.yCoordinate < 5 && notABarrier(enemy, "down") && notAWall(enemy, "down")) {
+    if (enemy.yCoordinate < 9 && notABarrier(enemy, "down") && notAWall(enemy, "down")) {
       enemy.yCoordinate +=1;
     } else {
       enemy.enemyDirection = "left";
@@ -105,7 +105,7 @@ function moveNpcPatrol(enemy) {
       enemy.enemyDirection = "right";
     }
   } else if (enemy.enemyDirection === "right") {
-    if (enemy.xCoordinate < 5 && notABarrier(enemy, "right") && notAWall(enemy, "right")) {
+    if (enemy.xCoordinate < 9 && notABarrier(enemy, "right") && notAWall(enemy, "right")) {
       enemy.xCoordinate +=1;
     } else {
       enemy.enemyDirection = "down";
@@ -117,7 +117,7 @@ function moveNpcPatrol(enemy) {
 
 function moveNpcHorizontal(enemy) {
   if (enemy.enemyDirection === "right") {
-    if (enemy.xCoordinate < 5 && notAWall(enemy, "right") && notABarrier(enemy, "right")) {
+    if (enemy.xCoordinate < 9 && notAWall(enemy, "right") && notABarrier(enemy, "right")) {
       enemy.xCoordinate += 1;
     } else {
       enemy.xCoordinate -= 1;
@@ -135,7 +135,7 @@ function moveNpcHorizontal(enemy) {
 
 function moveNpcVertical(enemy) {
   if (enemy.enemyDirection === "down") {
-    if (enemy.yCoordinate < 5 && notAWall(enemy, "down") && notABarrier(enemy, "down")) {
+    if (enemy.yCoordinate < 9 && notAWall(enemy, "down") && notABarrier(enemy, "down")) {
       enemy.yCoordinate += 1;
     } else {
       enemy.yCoordinate -= 1;
@@ -251,9 +251,9 @@ $(document).ready(function() {
   var gameObjects = [];
   var enemies = [];
   var player = new GameObject("player.png", 0, 0);
-  var toilet = new GameObject("toilet.png", 5, 5);
+  var toilet = new GameObject("toilet.png", 9, 9);
   var enemy1 = new GameObject("poop.png", 1, 4, "patrol");
-  var enemy2 = new GameObject("hunter.gif", 5, 0, "hunter", player);
+  var enemy2 = new GameObject("hunter.gif", 9, 0, "hunter", player);
   gameObjects.push(toilet);
   gameObjects.push(player);
   gameObjects.push(enemy1);
@@ -266,8 +266,9 @@ $(document).ready(function() {
   function progressTurn() {
     positionGameObjects(gameObjects);
     if (triggerInterrupt(player, toilet, enemies, turnCounter, turnLimit) === false) {
-      movePattern(enemy1, enemy1.enemyType, enemy1.enemyTarget, turnCounter);
-      movePattern(enemy2, enemy2.enemyType, enemy2.enemyTarget, turnCounter);
+      enemies.forEach(function(enemy) {
+      movePattern(enemy, enemy.enemyType, enemy.enemyTarget, turnCounter);
+    });
       positionGameObjects(gameObjects);
     }
     turnCounter ++;
@@ -281,7 +282,7 @@ $(document).ready(function() {
         player.xCoordinate = player.xCoordinate - 1;
       }
     } else if (direction === "right") {
-      if (player.xCoordinate < 5 && notAWall(player, "right") && notABarrier(player, "right")) {
+      if (player.xCoordinate < 9 && notAWall(player, "right") && notABarrier(player, "right")) {
         player.xCoordinate = player.xCoordinate + 1;
       }
     } else if (direction === "up") {
@@ -289,7 +290,7 @@ $(document).ready(function() {
         player.yCoordinate = player.yCoordinate - 1;
       }
     } else if (direction === "down") {
-      if (player.yCoordinate < 5 && notAWall(player, "down") && notABarrier(player, "down")) {
+      if (player.yCoordinate < 9 && notAWall(player, "down") && notABarrier(player, "down")) {
         player.yCoordinate = player.yCoordinate + 1;
       }
     }
@@ -306,13 +307,13 @@ $(document).ready(function() {
   $(document).keydown(function(e){
     if (triggerInterrupt(player, toilet, enemies, turnCounter, turnLimit)) {
       return;
-    } else if (e.keyCode === 37) {
+    } else if (e.keyCode === 65) {
        playerMove("left")
-    } else if (e.keyCode === 39) {
+    } else if (e.keyCode === 68) {
        playerMove("right")
-    } else if (e.keyCode === 38) {
+    } else if (e.keyCode === 87) {
        playerMove("up")
-    } else if (e.keyCode === 40) {
+    } else if (e.keyCode === 83) {
        playerMove("down")
     }
   });
