@@ -280,17 +280,17 @@ function powerUpIncrease(player, powerUp, turnCounter, turnLimit) {
 
 $(document).ready(function() {
   var turnCounter = 0;
-  var turnLimit = 20;
+  var turnLimit = 25;
   var rivalCounter = 0;
   var gameObjects = [];
   var enemies = [];
   var player = new GameObject("Player", "player.png", 0, 0);
   var goal = new GameObject("Goal", "gold.png", 0, 7);
   var patrol = new GameObject("Patrol", "enemy1.png", 3, 9, "patrol");
-  var hunter = new GameObject("Hunter", "enemy2.png", 2, 2, "hunter", player);
+  var hunter = new GameObject("Hunter", "enemy2.png", 3, 3, "hunter", player);
   var guard = new GameObject("Guard (vertical)", "enemy3.png", 4, 5, "vertical");
   var guard2 = new GameObject("Guard (horizontal)", "enemy4.png", 4, 1, "horizontal");
-  var powerUp = new GameObject("Power Up", "dce.png", 9, 7);
+  var powerUp = new GameObject("Power Up", "powerUp.png", 9, 7);
   var rival = new GameObject("Rival", "enemy5.png", 7, 2, "hunter", goal);
   gameObjects.push(player, goal, powerUp, patrol, hunter, guard, guard2);
   enemies.push(patrol, hunter, guard, guard2);
