@@ -246,7 +246,7 @@ function meter(turnCounter, turnLimit) {
   $("#meter").width(percentileWidth + "%");
 }
 
-function objectListing(objects) {
+function objectListing(objects, rival) {
   objects.forEach(function(object) {
     $("ul#objectList").append(
       "<li>" +
@@ -256,6 +256,12 @@ function objectListing(objects) {
       "</li>"
     );
   });
+  $("ul#objectList").append(
+    "<li>" +
+      rival.name +
+      "<br>" +
+      "<img src='" + rival.avatar + "' alt='" + rival.name + "'>" +
+    "</li>");
 }
 
 function powerUpCheck(player, powerUp) {
@@ -282,14 +288,14 @@ $(document).ready(function() {
   var goal = new GameObject("Goal", "toilet.png", 9, 9);
   var patrol = new GameObject("Patrol", "poop.png", 1, 4, "patrol");
   var hunter = new GameObject("Hunter", "hunter.gif", 9, 0, "hunter", player);
-  var guard = new GameObject("Guard (vertical)", "cube.png", 5, 6, "vertical");
+  var guard = new GameObject("Guard (vertical)", "guard.jpg", 5, 6, "vertical");
   var guard2 = new GameObject("Guard (horizontal)", "arrow.png", 5, 8, "horizontal");
   var powerUp = new GameObject("Power Up", "dice.png", 7, 9);
   var rival = new GameObject("Rival", "peace.png", 5, 6, "hunter", goal);
   gameObjects.push(player, goal, powerUp, patrol, hunter, guard, guard2);
   enemies.push(patrol, hunter, guard, guard2);
 
-  objectListing(gameObjects);
+  objectListing(gameObjects, rival);
   positionGameObjects(gameObjects);
 
   function progressTurn() {
