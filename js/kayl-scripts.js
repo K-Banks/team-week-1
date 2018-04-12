@@ -294,13 +294,13 @@ $(document).ready(function() {
   objectListing(gameObjects);
   positionGameObjects(gameObjects);
 
-  function  rivalAppearance(rival, rivalCounter, rivalMaximum) {
-    gameObjects.push(rival);
-    enemies.push(rival);
-    positionGameObjects(gameObjects);
-    rivalCounter++;
-    rivalMaximum++;
-  }
+  // function  rivalAppearance(rival, rivalCounter, rivalMaximum) {
+  //   gameObjects.push(rival);
+  //   enemies.push(rival);
+  //   positionGameObjects(gameObjects);
+  //   rivalCounter++;
+  //   rivalMaximum++;
+  // }
 
   function progressTurn() {
     positionGameObjects(gameObjects);
@@ -312,7 +312,7 @@ $(document).ready(function() {
     }
     if (powerUpCheck(player, powerUp)) {
      turnCounter = powerUpIncrease(player, powerUp, turnCounter, turnLimit);
-     gameObjects.splice(powerUp, 0);
+     gameObjects.splice(powerUp, 1);
      powerUp.xCoordinate = "";
      powerUp.yCoordinate = "";
      positionGameObjects(gameObjects);
