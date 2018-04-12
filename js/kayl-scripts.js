@@ -1,5 +1,6 @@
-function GameObject (avatar, xCoordinate, yCoordinate, type, target, direction) {
-  this.avatar = avatar;
+function GameObject (name, avatar, xCoordinate, yCoordinate, type, target, direction) {
+  this.name = name;
+  this.avatar = "kayl-img/" + avatar;
   this.xCoordinate = xCoordinate;
   this.yCoordinate = yCoordinate;
   this.enemyType = type;
@@ -203,10 +204,24 @@ function notAWall(object, direction) {
   }
 }
 
+function powerUpCheck(player, powerUp){
+  if(player.xCoordinate === powerUp.xCoordinate && player.yCoordinate === powerUp.yCoordinate){
+    return true;
+  } else{
+    return false;
+  }
+}
+
+function powerUpIncrease(player, powerUp, turnCounter, turnLimit){
+  turnCounter -= 15;
+  meter(turnCounter, turnLimit);
+  return turnCounter;
+}
+
 // USER INTERFACE LOGIC
-function triggerInterrupt(player, toilet, enemies, turnCounter, turnLimit) {
+function triggerInterrupt(player, goal, enemies, turnCounter, turnLimit) {
   var interrupt = false;
-  if (player.xCoordinate === toilet.xCoordinate && player.yCoordinate === toilet.yCoordinate) {
+  if (player.xCoordinate === goal.xCoordinate && player.yCoordinate === goal.yCoordinate) {
     $("#game-over h4").html("Whew, you win! Don't forget to flush.");
     $("#navigation").hide();
     $("#game-over").show();
@@ -228,10 +243,22 @@ function triggerInterrupt(player, toilet, enemies, turnCounter, turnLimit) {
   return interrupt;
 }
 
+function objectListing(objects) {
+  objects.forEach(function(object) {
+    $("ul#objectList").append(
+      "<li>" +
+        object.name +
+        "<br>" +
+        "<img src='" + object.avatar + "' alt='" + object.name + "'>" +
+      "</li>"
+    );
+  });
+}
+
 function positionGameObjects(array) {
   $("td").text("");
   array.forEach(function(element) {
-    $(".y" + element.yCoordinate + " .x" + element.xCoordinate).html("<img src=\"img/" + element.avatar + "\">");
+    $(".y" + element.yCoordinate + " .x" + element.xCoordinate).html("<img src='" + element.avatar + "'>");
   });
 }
 
@@ -250,29 +277,37 @@ $(document).ready(function() {
   var turnLimit = 20;
   var gameObjects = [];
   var enemies = [];
-  var player = new GameObject("player.png", 0, 0);
-  var toilet = new GameObject("toilet.png", 5, 5);
-  var enemy1 = new GameObject("poop.png", 1, 4, "patrol");
-  var enemy2 = new GameObject("hunter.gif", 5, 0, "hunter", player);
-  gameObjects.push(toilet);
-  gameObjects.push(player);
-  gameObjects.push(enemy1);
-  gameObjects.push(enemy2);
-  enemies.push(enemy1);
-  enemies.push(enemy2);
+  var player = new GameObject("Player", "player.png", 0, 0);
+  var goal = new GameObject("Goal", "toilet.png", 9, 9);
+  var patrol = new GameObject("Patrol", "poop.png", 1, 4, "patrol");
+  var hunter = new GameObject("Hunter", "hunter.gif", 5, 0, "hunter", player);
+  var guard = new GameObject("Guard (vertical)", "cube.png", 3, 6, "vertical");
+  var guard2 = new GameObject("Guard (horizontal)", "arrow.png", 5, 8, "horizontal");
+  var powerUp = new GameObject("Power Up", "dice.png", 7, 9);
+  var rival = new GameObject("Rival", "peace.png", 5, 6, "hunter", goal);
+  gameObjects.push(goal, player, patrol, hunter, guard, guard2, powerUp, rival);
+  enemies.push(patrol, hunter, guard, guard2, rival);
 
+  objectListing(gameObjects);
   positionGameObjects(gameObjects);
 
   function progressTurn() {
     positionGameObjects(gameObjects);
-    if (triggerInterrupt(player, toilet, enemies, turnCounter, turnLimit) === false) {
+    if (triggerInterrupt(player, goal, enemies, turnCounter, turnLimit) === false) {
       movePattern(enemy1, enemy1.enemyType, enemy1.enemyTarget, turnCounter);
       movePattern(enemy2, enemy2.enemyType, enemy2.enemyTarget, turnCounter);
       positionGameObjects(gameObjects);
     }
+    if (powerUpCheck(player, powerUp)) {
+     turnCounter = powerUpIncrease(player, powerUp, turnCounter, turnLimit);
+     gameObjects.pop();
+     powerUp.xCoordinate = "";
+     powerUp.yCoordinate = "";
+     positionGameObjects(gameObjects);
+    }
     turnCounter ++;
     meter(turnCounter, turnLimit);
-    triggerInterrupt(player, toilet, enemies, turnCounter, turnLimit);
+    triggerInterrupt(player, goal, enemies, turnCounter, turnLimit);
   }
 
   function playerMove(direction) {
@@ -281,7 +316,7 @@ $(document).ready(function() {
         player.xCoordinate = player.xCoordinate - 1;
       }
     } else if (direction === "right") {
-      if (player.xCoordinate < 5 && notAWall(player, "right") && notABarrier(player, "right")) {
+      if (player.xCoordinate < 9 && notAWall(player, "right") && notABarrier(player, "right")) {
         player.xCoordinate = player.xCoordinate + 1;
       }
     } else if (direction === "up") {
@@ -289,7 +324,7 @@ $(document).ready(function() {
         player.yCoordinate = player.yCoordinate - 1;
       }
     } else if (direction === "down") {
-      if (player.yCoordinate < 5 && notAWall(player, "down") && notABarrier(player, "down")) {
+      if (player.yCoordinate < 9 && notAWall(player, "down") && notABarrier(player, "down")) {
         player.yCoordinate = player.yCoordinate + 1;
       }
     }
@@ -304,7 +339,7 @@ $(document).ready(function() {
 
   // Arrow Key Navigation
   $(document).keydown(function(e){
-    if (triggerInterrupt(player, toilet, enemies, turnCounter, turnLimit)) {
+    if (triggerInterrupt(player, goal, enemies, turnCounter, turnLimit)) {
       return;
     } else if (e.keyCode === 65) {
        playerMove("left")

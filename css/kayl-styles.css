@@ -9,6 +9,19 @@ td {
   text-align: center;
 }
 
+.container {
+  float: right;
+  width: 75%;
+  margin-right: 2%;
+}
+
+.wrapper {
+  float: left;
+  width: 20%;
+  margin-left: 2%;
+  margin-right: 1%;
+}
+
 #gameboard, #navigation {
   margin: 20px auto;
 }
@@ -62,4 +75,8 @@ td {
 
 .display-none {
   display: none;
+}
+
+img {
+  width: 100%;
 }
