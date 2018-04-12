@@ -310,7 +310,7 @@ $(document).ready(function() {
       turnCounter = powerUpIncrease(player, powerUp, turnCounter, turnLimit);
       powerUp.xCoordinate = "";
       powerUp.yCoordinate = "";
-      player.avatar = "kayl-img/poop.png";
+      player.avatar = "kayl-img/powerUpChange.ico";
       positionGameObjects(gameObjects);
       player.avatar = "kayl-img/player.png"
     }
