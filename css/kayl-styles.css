@@ -57,6 +57,10 @@ td {
   background-image: url(../kayl-img/bodyTile3.png);
 }
 
+.bodyTile4 {
+  background-image: url(../kayl-img/bodyTile4.png);
+}
+
 .barrier {
   background-image: url(../kayl-img/barrier.png);
 }
@@ -75,6 +79,32 @@ td {
 
 .wall-down {
   background-image: url(../kayl-img/wall1d.png);
+}
+
+.wall2-ld {
+  background-image: url(../kayl-img/wall2ld.png);
+}
+.wall2-rd {
+  background-image: url(../kayl-img/wall2rd.png);
+}
+.wall2-lu {
+  background-image: url(../kayl-img/wall2lu.png);
+}
+.wall2-ru {
+  background-image: url(../kayl-img/wall2ru.png);
+}
+
+.wall3-ldu {
+  background-image: url(../kayl-img/wall3ldu.png);
+}
+.wall3-rdu {
+  background-image: url(../kayl-img/wall3rdu.png);
+}
+.wall3-rlu {
+  background-image: url(../kayl-img/wall3rlu.png);
+}
+.wall3-rld {
+  background-image: url(../kayl-img/wall3rld.png);
 }
 
 .container {
