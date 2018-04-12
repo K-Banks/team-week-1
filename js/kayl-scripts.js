@@ -292,8 +292,9 @@ $(document).ready(function() {
   var guard2 = new GameObject("Guard (horizontal)", "enemy4.png", 4, 1, "horizontal");
   var powerUp = new GameObject("Power Up", "powerUp.png", 9, 7);
   var rival = new GameObject("Rival", "enemy5.png", 7, 2, "hunter", goal);
-  gameObjects.push(player, goal, powerUp, patrol, hunter, guard, guard2);
-  enemies.push(patrol, hunter, guard, guard2);
+  var patrol2 = new GameObject("Patrol", "enemy1.png", 5, 2, "patrol");
+  gameObjects.push(player, goal, powerUp, patrol, hunter, guard, guard2, patrol2);
+  enemies.push(patrol, hunter, guard, guard2, patrol2);
 
   objectListing(gameObjects, rival);
   positionGameObjects(gameObjects);
@@ -310,7 +311,7 @@ $(document).ready(function() {
       turnCounter = powerUpIncrease(player, powerUp, turnCounter, turnLimit);
       powerUp.xCoordinate = "";
       powerUp.yCoordinate = "";
-      player.avatar = "kayl-img/powerUpChange.ico";
+      player.avatar = "kayl-img/powerUpChange.jpg";
       positionGameObjects(gameObjects);
       player.avatar = "kayl-img/player.png"
     }
